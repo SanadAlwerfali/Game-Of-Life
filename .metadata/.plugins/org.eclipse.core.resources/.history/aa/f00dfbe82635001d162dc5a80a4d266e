@@ -1,0 +1,211 @@
+import java.awt.Color;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
+
+public class Life {	
+	
+	private int num;
+	private int size;
+	private int width = 25;
+	private Picture pic;
+	static Color w = new Color(255,255,255);
+    static Color b = new Color(0,0,0);
+	static int current [][];
+	static int random [][];
+    
+	public Life(int num, int size) {
+		this.num = num;
+		this.size = size;
+		current = new int [size][size];
+		pic = new Picture(size * width, size * width);
+	};
+	
+	
+	
+	static int[][] PDO = { 
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            { 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0},
+            { 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0},
+            { 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0},
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}    
+    };
+	static int[][] SGG = { 
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	}};
+	
+	// fill a current with a random colour
+	private void drawCell(int i, int j, Color color)
+	{
+        for (int offsetX = 0; offsetX < width; offsetX++)
+        {
+            for (int offsetY = 0; offsetY < width; offsetY++)
+            {
+                // set() colours an individual pixel
+                pic.set((i*width)+offsetX,
+                        (j*width)+offsetY, color);
+            }
+        }
+    }
+	
+	// display (or update) the picture on screen
+    public void show()
+    {
+        pic.show();     // without calling this the pic will not show
+    }
+	
+    
+    
+
+	void Grid (String c) {
+		if (Objects.equals(c, "P")) {
+	        for (int y = 0; y < PDO.length; y++) {
+
+	            for (int x = 0; x < PDO[0].length; x++) {
+	                current[y][x] = PDO[y][x]; // Initialize each cell with a 0 or 1.
+	            }
+	        }
+	        
+		}
+			
+		if (Objects.equals(c, "S")) {
+				
+				for (int y = 0; y < SGG.length; y++) {
+
+		            for (int x = 0; x < SGG[0].length; x++) {
+		                current[y][x] = SGG[y][x]; // Initialize each cell with a 0 or 1.
+		            }
+		        }
+		}
+		
+		if (Objects.equals(c, "R")) {
+			for (int i = 0; i < current.length; i++) {
+				for (int k = 0; k < current.length; k++) {
+					int x = (int) (Math.random()*100);
+					if (x % 2 == 0)
+					{current[i][k] = 0;}
+					else
+					{current[i][k] = 1;}
+				}       
+		    }
+		}
+	}
+    
+	void draw (int curr[][]) {
+		for (int i = 0; i < curr.length; i++) {
+			for (int k = 0; k < curr.length; k++) {
+				if (curr[i][k] == 1){
+					drawCell(k,i,w);
+				}
+				else {
+					drawCell(k,i,b);
+				}
+			}
+		}
+		show();
+	}
+	
+	// This function is used to print the cells on terminal.
+	    private void printCells() {
+
+	        for (int y = 0; y < size; y++) { 
+	            for (int x = 0; x < size; x++) {
+
+	                if (current[y][x] == 1) {
+	                    System.out.print("[X]");
+	                } else {
+	                    System.out.print("[ ]");
+	                }
+	            }
+	            System.out.println(" ");
+	            
+	        }
+	        System.out.println("======================================");
+	    }
+	
+	
+	void nextGeneration(int size)
+    {
+        int[][] nxtGen = new int[size][size];
+ 
+        // Loop through every current
+  
+        for (int l = 0; l < size; l++)
+        {
+            for (int m = 0; m < size; m++)
+            {
+                // finding no Of Neighbours that are alive
+                int aliveNeighbours = 0;
+                for (int i = -1; i <= 1; i++)
+                    for (int j = -1; j <= 1; j++)
+                      if ((l+i>=0 && l+i<size) && (m+j>=0 && m+j<size))
+                        aliveNeighbours += current[l + i][m + j];
+ 
+                // The current needs to be subtracted from
+                // its neighbours as it was counted before
+                aliveNeighbours -= current[l][m];
+ 
+                // Implementing the Rules of Life
+ 
+                // current is lonely and dies
+                if ((current[l][m] == 1) && (aliveNeighbours < 2))
+                    nxtGen[l][m] = 0;
+ 
+                // current dies due to over population
+                else if ((current[l][m] == 1) && (aliveNeighbours > 3))
+                    nxtGen[l][m] = 0;
+ 
+                // A new current is born
+                else if ((current[l][m] == 0) && (aliveNeighbours == 3))
+                    nxtGen[l][m] = 1;
+ 
+                // Remains the same
+                else
+                    nxtGen[l][m] = current[l][m];    
+          }
+            
+        }
+        current = nxtGen; 
+       }
+    
+    
+    
+    
+    
+	public static void main(String[] args) {
+		int num = Integer.parseInt(args[0]);
+		int size = Integer.parseInt(args[1]);
+		String c = args[2];
+		
+		Life life = new Life(num, size);
+		
+		life.Grid(c);
+		
+			try {
+				for (int e = 0; e < num; e++) {
+					life.nextGeneration(size);
+					//life.printCells();
+					life.draw(current);
+					Thread.sleep(1000);
+				}
+			
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+
+	}
+	
+}
+

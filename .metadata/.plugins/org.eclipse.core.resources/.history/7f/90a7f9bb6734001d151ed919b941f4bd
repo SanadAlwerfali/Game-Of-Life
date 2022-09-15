@@ -1,0 +1,172 @@
+import java.awt.Color;
+import java.util.Objects;
+
+public class Life {	
+	
+	private int num;
+	private int size;
+	private int width = 25;
+	private Picture pic;
+	static Color w = new Color(255,255,255);
+    static Color b = new Color(0,0,0);
+	static int cell [][];
+    
+    
+	public Life(int num, int size, String type) {
+		this.num = num;
+		this.size = size;
+		pic = new Picture(size * width, size * width);
+	};
+	
+	
+	
+	static int[][] PDO = { 
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            { 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0},
+            { 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0},
+            { 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0},
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}    
+    };
+	static int[][] SGG = { 
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	}};
+	
+	// fill a cell with a random colour
+	private void drawCell(int i, int j, Color color)
+	{
+        for (int offsetX = 0; offsetX < width; offsetX++)
+        {
+            for (int offsetY = 0; offsetY < width; offsetY++)
+            {
+                // set() colours an individual pixel
+                pic.set((i*width)+offsetX,
+                        (j*width)+offsetY, color);
+            }
+        }
+    }
+	
+	// display (or update) the picture on screen
+    public void show()
+    {
+        pic.show();     // without calling this the pic will not show
+    }
+	
+    
+    
+
+	void Grid (String c) {
+		if (Objects.equals(c, "P")) {
+			cell = PDO;
+			for (int i = 0; i < PDO.length-1 ; i++)
+	        {
+	            for (int j = 0; j < 11; j++)
+	            {
+	            	
+	            	
+	            	if (PDO[i][j] == 0) {
+	            		drawCell(j, i, w);
+	            	}
+	            	else {
+	            		drawCell(j, i, b);
+	            	}
+	            }
+	        }
+			}
+			
+			if (Objects.equals(c, "S")) {
+				cell = SGG;
+				for (int i = 0; i < SGG.length ; i++)
+		        {
+		            for (int j = 0; j < 35; j++)
+		            {
+		            	
+		            	
+		            	if (SGG[i][j] == 0) {
+		            		drawCell(j, i, w);
+		            	}
+		            	else {
+		            		drawCell(j, i, b);
+		            	}
+		            }
+		        }
+			}
+	}
+    
+	
+    
+    
+    
+    
+    
+	public static void main(String[] args) {
+		int num = Integer.parseInt(args[0]); // # of iterations
+		int size = Integer.parseInt(args[1]); // size of square grid
+		String c = args[2];	// type of initial config
+		int cell[][];
+		
+		Life life = new Life(num, size, c);
+		
+		
+		
+		
+		// fill each cell with a white or black colour
+        
+		for (int i = 0; i < size ; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+            	life.drawCell(i, j, w);
+            }
+        }
+		life.Grid(c);
+        life.show();
+//		if (Objects.equals(c, "P")) {
+//		for (int i = 0; i < PDO.length-1 ; i++)
+//        {
+//            for (int j = 0; j < 11; j++)
+//            {
+//            	
+//            	
+//            	if (PDO[i][j] == 0) {
+//            		life.drawCell(j, i, w);
+//            	}
+//            	else {
+//            		life.drawCell(j, i, b);
+//            	}
+//            }
+//        }
+//		}
+//		
+//		if (Objects.equals(c, "S")) {
+//			for (int i = 0; i < SGG.length ; i++)
+//	        {
+//	            for (int j = 0; j < 35; j++)
+//	            {
+//	            	
+//	            	
+//	            	if (SGG[i][j] == 0) {
+//	            		life.drawCell(j, i, w);
+//	            	}
+//	            	else {
+//	            		life.drawCell(j, i, b);
+//	            	}
+//	            }
+//	        }
+//		}
+		
+	}
+}
+

@@ -1,0 +1,17 @@
+import java.awt.Color;
+
+public class Picture {
+	private int x,y;            // x-by-y grid of cells
+    private int magnification;  // pixel-width of each cell
+    private int[][] cells;      // cells to be randomly coloured
+    private Picture pic;        // picture to be drawn on screen
+
+    public Picture(int x, int y, int magnification)
+    {
+        this.x = x;
+        this.y = y;
+        this.magnification = magnification;
+        cells = new int[x][y];
+        pic = new Picture(x * magnification, y * magnification);
+    }
+}

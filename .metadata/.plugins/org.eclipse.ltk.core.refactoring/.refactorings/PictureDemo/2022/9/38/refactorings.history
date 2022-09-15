@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 2 elements to &apos;Life/src/(default package)&apos;&#x0D;&#x0A;- Original project: &apos;PictureDemo&apos;&#x0D;&#x0A;- Destination element: &apos;Life/src/(default package)&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     Picture.java&#x0D;&#x0A;     PictureDemo.java" description="Copy compilation units" destination="=Life/src&lt;" element1="/PictureDemo&lt;{Picture.java" element2="/PictureDemo&lt;{PictureDemo.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1663174593305" units="2" version="1.0"/>
+</session>

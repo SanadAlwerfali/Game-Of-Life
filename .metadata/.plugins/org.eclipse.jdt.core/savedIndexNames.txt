@@ -1,0 +1,5 @@
+INDEX VERSION 1.131+C:\Users\sanad\Desktop\Personals\School\F2022\Nature Computing\A1\.metadata\.plugins\org.eclipse.jdt.core
+75931715.index
+1865797976.index
+2755659150.index
+2742721291.index

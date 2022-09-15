@@ -1,0 +1,227 @@
+import java.awt.Color;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
+
+public class Life {	
+	
+	private int num;
+	private int size;
+	private int width = 25;
+	private Picture pic;
+	static Color w = new Color(255,255,255);
+    static Color b = new Color(0,0,0);
+	static int current [][];
+    
+    
+	public Life(int num, int size, String type) {
+		this.num = num;
+		this.size = size;
+		pic = new Picture(size * width, size * width);
+	};
+	
+	
+	
+	static int[][] PDO = { 
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            { 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0},
+            { 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0},
+            { 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0},
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}    
+    };
+	static int[][] SGG = { 
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	}};
+	
+	// fill a current with a random colour
+	private void drawCell(int i, int j, Color color)
+	{
+        for (int offsetX = 0; offsetX < width; offsetX++)
+        {
+            for (int offsetY = 0; offsetY < width; offsetY++)
+            {
+                // set() colours an individual pixel
+                pic.set((i*width)+offsetX,
+                        (j*width)+offsetY, color);
+            }
+        }
+    }
+	
+	// display (or update) the picture on screen
+    public void show()
+    {
+        pic.show();     // without calling this the pic will not show
+    }
+	
+    
+    
+
+	void Grid (String c) {
+		if (Objects.equals(c, "P")) {
+			current = PDO;
+			for (int i = 0; i < PDO.length ; i++)
+	        {
+	            for (int j = 0; j < 11; j++)
+	            {
+	            	
+	            	
+	            	if (PDO[i][j] == 0) {
+	            		drawCell(j, i, w);
+	            	}
+	            	else {
+	            		drawCell(j, i, b);
+	            	}
+	            }
+	        }
+			nextGeneration(current, current.length, current.length);
+		}
+			
+		if (Objects.equals(c, "S")) {
+				current = SGG;
+				for (int i = 0; i < SGG.length ; i++)
+		        {
+		            for (int j = 0; j < 35; j++)
+		            {
+		            	
+		            	
+		            	if (SGG[i][j] == 0) {
+		            		drawCell(j, i, w);
+		            	}
+		            	else {
+		            		drawCell(j, i, b);
+		            	}
+		            }
+		        }
+				nextGeneration(current, current.length, current.length);
+		}
+	}
+    
+	
+	
+	// This function is used to print the cells on terminal.
+	    private void printCells() {
+
+	        for (int y = 0; y < this.size; y++) { 
+	            for (int x = 0; x < this.size; x++) {
+
+	                if (current[x][y] == 1) {
+	                    System.out.print("[X]");
+	                } else {
+	                    System.out.print("[ ]");
+	                }
+	            }
+	            System.out.println(" ");
+	        }
+	    }
+	
+	
+	void nextGeneration(int current[][], int M, int N)
+    {
+        int[][] future = new int[M][N];
+ 
+        // Loop through every current
+  
+        for (int l = 0; l < M; l++)
+        {
+            for (int m = 0; m < N; m++)
+            {
+                // finding no Of Neighbours that are alive
+                int aliveNeighbours = 0;
+                for (int i = -1; i <= 1; i++)
+                    for (int j = -1; j <= 1; j++)
+                      if ((l+i>=0 && l+i<M) && (m+j>=0 && m+j<N))
+                        aliveNeighbours += current[l + i][m + j];
+ 
+                // The current needs to be subtracted from
+                // its neighbours as it was counted before
+                aliveNeighbours -= current[l][m];
+ 
+                // Implementing the Rules of Life
+ 
+                // current is lonely and dies
+                if ((current[l][m] == 1) && (aliveNeighbours < 2))
+                    future[l][m] = 0;
+ 
+                // current dies due to over population
+                else if ((current[l][m] == 1) && (aliveNeighbours > 3))
+                    future[l][m] = 0;
+ 
+                // A new current is born
+                else if ((current[l][m] == 0) && (aliveNeighbours == 3))
+                    future[l][m] = 1;
+ 
+                // Remains the same
+                else
+                    future[l][m] = current[l][m];
+                
+                current = future;
+                for (int e = 0; e < 5; e++) {
+                
+                for (int i = 0; i < future.length ; i++)
+		        {
+		            for (int j = 0; j < future.length; j++)
+		            {
+		            	if (future[i][j] == 0) {
+		            		drawCell(j, i, w);
+		            	}
+		            	else {
+		            		drawCell(j, i, b);
+		            	}
+		            	//show();
+//		            	try {
+//							Thread.sleep(300);
+//						} catch (InterruptedException e1) {
+//							e1.printStackTrace();
+//						}
+		            }
+		        }
+                }
+                
+            }
+        }
+        }
+    
+    
+    
+    
+    
+	public static void main(String[] args) {
+		int num = 5;
+		int size = 12;
+		String c = "P";
+		int current[][];
+		
+		Life life = new Life(num, size, c);
+		
+		
+		
+		
+		// fill each current with a white or black colour
+        
+		for (int i = 0; i < size ; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+            	life.drawCell(i, j, w);
+            }
+        }
+		life.Grid(c);
+        //life.show();
+        
+        life.printCells();
+	}
+	
+}
+
