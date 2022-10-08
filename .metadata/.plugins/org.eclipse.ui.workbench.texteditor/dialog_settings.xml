@@ -2,15 +2,27 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item key="wrap" value="true"/>
-		<item key="casesensitive" value="false"/>
+		<item key="casesensitive" value="true"/>
 		<item key="wholeword" value="true"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="current"/>
+		<item key="selection" value="x"/>
 		<list key="findhistory">
+			<item value="m"/>
+			<item value="l"/>
+			<item value="nextGeneration"/>
+			<item value="random"/>
+			<item value="current"/>
+			<item value="aliveNeighbours"/>
+			<item value="future"/>
 			<item value="cell"/>
 		</list>
 		<list key="replacehistory">
+			<item value="x"/>
+			<item value="y"/>
+			<item value="update"/>
+			<item value="aliveCell"/>
+			<item value="nxtGen"/>
 			<item value="current"/>
 		</list>
 	</section>
@@ -19,6 +31,6 @@
 		<item key="DIALOG_Y_ORIGIN" value="442"/>
 		<item key="DIALOG_WIDTH" value="511"/>
 		<item key="DIALOG_HEIGHT" value="523"/>
-		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|5|0|Segoe UI"/>
 	</section>
 </section>

@@ -190,7 +190,7 @@ public class Life {
 				for (int e = 0; e < num; e++) {
 					life.update(size);
 					life.draw(current);
-					Thread.sleep(80);
+					Thread.sleep(100);
 				}
 			
 		} 
